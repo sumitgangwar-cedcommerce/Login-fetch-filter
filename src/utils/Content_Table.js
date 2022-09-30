@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import {Page, Card, DataTable, Select, TextField} from '@shopify/polaris';
+import {Page, Card, DataTable, Select, TextField, SkeletonPage, SkeletonTabs} from '@shopify/polaris';
 import Table_skeleton from './Table_skeleton';
 const Content_Table = ({data , searchData , isLoading}) => {
     const label = [
@@ -24,6 +24,8 @@ const Content_Table = ({data , searchData , isLoading}) => {
     ]
 
     var timer = useRef()
+
+
 
     const myFun = ()=>{
         clearTimeout(timer.current)
@@ -79,6 +81,7 @@ const Content_Table = ({data , searchData , isLoading}) => {
     <>
     {
         isLoading === true ?  
+        <>
         <Page>
             <Card>
                 <DataTable
@@ -93,10 +96,11 @@ const Content_Table = ({data , searchData , isLoading}) => {
                     'text'
                 ]}
                 headings={headingArr}
-                rows={[sel]}
+                rows={[sel , [Array(7).fill(1).map((item , i) => <SkeletonTabs count={7}/>)]]}
                 />
             </Card>
         </Page>
+        </>
         :
         <Page>
             <Card>
